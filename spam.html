@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Bot Spammer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #b3e5fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      position: relative;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      padding: 20px;
+      text-align: center;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 1.5em;
+      color: #0288d1;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input {
+      background: #e3f2fd;
+      color: #0288d1;
+      font-size: 1em;
+    }
+    button {
+      background: #0288d1;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #0277bd;
+    }
+    .credit {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 10px;
+    }
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Telegram Bot Spammer</h1>
+    <input type="text" id="token" placeholder="Bot Token">
+    <input type="text" id="chatId" placeholder="Chat ID">
+    <input type="text" id="message" placeholder="Enter Pesan">
+    <input type="number" id="count" placeholder="Jumlah Pesan">
+    <button onclick="sendMessage()">Start Spam</button>
+    <p class="credit">Created by Renzxz</p>
+  </div>
+
+  <video autoplay loop muted>
+    <source src="https://files.catbox.moe/2j3h4b.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <script>
+    async function sendMessage() {
+      const token = document.getElementById('token').value;
+      const chatId = document.getElementById('chatId').value;
+      const message = document.getElementById('message').value;
+      const count = parseInt(document.getElementById('count').value);
+
+      if (!token || !chatId || !message || isNaN(count) || count <= 0) {
+        alert('Harap isi semua bidang dengan benar. by Renzxz');
+        return;
+      }
+
+      const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+      for (let i = 0; i < count; i++) {
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chatId, text: message })
+        }).catch(error => console.error('Error:', error));
+      }
+
+      alert(`${count} pesan berhasil dikirim! by Renzxz`);
+    }
+  </script>
+</body>
+</html>
